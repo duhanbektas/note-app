@@ -6,6 +6,22 @@ import Split from "react-split"
 import {nanoid} from "nanoid"
 
 export default function App() {
+    
+     /*
+    
+    Reason for using getItem here, is that if we set an item which
+    we use setItem in useEffect; It will directly load that item
+    which is set in local storage (we get that item from localStorage)
+    
+    If we don't have any saved notes on localStorage, we use an empty
+    array (that's why we use OR in State)
+    
+    Reason for using ()=> in JSON.parse is that we don't want localstorage
+    to save every key stroke, we want it to save it after we finished
+    typing. Arrow functions in states used for this purpose.
+
+    */
+    
     const [notes, setNotes] = React.useState(
         () => JSON.parse(localStorage.getItem("notes")) || []
     )
@@ -41,18 +57,6 @@ export default function App() {
             return newArray
         })
     }
-    
-    /**
-     * Challenge: complete and implement the deleteNote function
-     * 
-     * Hints: 
-     * 1. What array method can be used to return a new
-     *    array that has filtered out an item based 
-     *    on a condition?
-     * 2. Notice the parameters being based to the function
-     *    and think about how both of those parameters
-     *    can be passed in during the onClick event handler
-     */
     
     function deleteNote(event, noteId) {
         event.stopPropagation()
